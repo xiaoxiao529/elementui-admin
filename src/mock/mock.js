@@ -1,7 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Mock from 'mockjs';
-import { Users } from './data/user.js'; // 导入Users数据
+import { Users,LoginUsers } from './data/user.js'; // 导入Users数据
 let _Users = Users;
 export default {
   /**
@@ -9,6 +9,37 @@ export default {
    */
   start() { // 初始化函数
     let mock = new MockAdapter(axios); // 创建 MockAdapter 实例
+    
+    //登录接口
+    mock.onPost('/login').reply((config)=>{
+    	
+    	let {username,password} = JSON.parse(config.data);
+			
+    	return new Promise((resolve, reject) => {  //响应请求，返回数据给前台
+    		
+    		let hasUser = LoginUsers.some((value,key,arr)=>{
+
+    			if(value.username === username && value.password === password){
+    				return true
+    			}
+    		})
+    		
+    		if(hasUser){
+    			resolve([200, {
+            code:200,
+            msg:'登录成功'
+          }]);
+    		}else{
+    			resolve([200, {
+            code:500,
+            msg:'账号或密码错误'
+          }]);
+    		}
+
+      });
+    	
+    	
+    })
 
     //获取用户列表接口
     mock.onGet('/user/list',).reply(config => { //  config 指 前台传过来的值  网址自己随意定义，访问时要和这个网址一致就可以，这个'/user/list'，就是get请求时的url地址

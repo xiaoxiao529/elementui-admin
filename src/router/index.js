@@ -9,12 +9,17 @@ import Page4 from '@/views/Page4'
 import Page5 from '@/views/Page5'
 import Page6 from '@/views/Page6'
 import Echarts from '@/views/Echarts'
-
+import Login from '@/views/Login'
 
 Vue.use(Router)
 
 let router =  new Router({
   routes: [
+  	{
+  		path:'/login',
+  		name:'login',
+  		component:Login
+  	},
     {
       path: '/',
       name: '导航一',

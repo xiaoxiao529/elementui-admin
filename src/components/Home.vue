@@ -11,7 +11,19 @@
 			  <el-col :span="16"><div class="grid-content bg-purple-light">
 			  	<i class="el-icon-tickets" @click="showAndHide"></i>
 			  </div></el-col>
-			  <el-col :span="4"><div class="grid-content bg-purple">1</div></el-col>
+			  <el-col :span="4"><div class="grid-content bg-purple">
+			  	<el-dropdown>
+				  <span class="el-dropdown-link">
+				    <span>admin</span>
+				    <img src="../../build/logo.png" width="40"/>
+				  </span>
+				  <el-dropdown-menu slot="dropdown">
+				    <el-dropdown-item>我的消息</el-dropdown-item>
+				    <el-dropdown-item>设置</el-dropdown-item>
+				    <el-dropdown-item divided @click.native="loginOut">退出登录</el-dropdown-item>
+				  </el-dropdown-menu>
+				</el-dropdown>
+			  </div></el-col>
 			</el-row>
   		
   	</el-header>
@@ -138,6 +150,25 @@
       },
       showAndHide(){
       	this.isCollapse = !this.isCollapse
+      },
+      loginOut(){
+		this.$confirm('确定退出?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '退出成功!'
+          });
+          this.$router.push('/login')
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消退出'
+          });          
+        });
+      	
       }
     },
     created(){
@@ -165,6 +196,14 @@
   }
   .el-icon-tickets{
   	cursor: pointer;
+  }
+  .el-dropdown-link{
+  	cursor: pointer;
+  }
+  .el-dropdown-link img{
+	vertical-align: top;
+  	padding: 10px 0 0 0;
+
   }
 </style>
 

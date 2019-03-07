@@ -1,5 +1,16 @@
 import Mock from 'mockjs'; // 导入mockjs 模块
 
+//定义已经存在的用户
+let LoginUsers = [
+	{
+		id: 1,
+    username: 'admin',
+    password: '123456',
+    avatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',
+    name: '张某某'
+	}
+]
+
 let Users = []; // 定义我们需要的数据，后面导出
 
 const COUNT = [1, 2, 3, 4, 5]; // 定义我们需要数量，即生成几条模拟数据
@@ -16,4 +27,4 @@ for (let i = 1; i <= 30; i++) {
     isDelete: false, //是否删除
   }));
 }
-export { Users };  // 导出用户数据
+export { Users,LoginUsers };  // 导出用户数据
